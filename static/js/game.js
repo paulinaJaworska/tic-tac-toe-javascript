@@ -45,8 +45,6 @@ function play(event) {
     //check()
 }
 
-
-"""
 /*var ticTacToe = _.range(3).map(function () {
  *       // Create one row
  *       return _.range(3).map(function () {
@@ -70,4 +68,4 @@ function play(event) {
  *   }
  *
  *   return arr;
- *}*/"""
+ *}*/
