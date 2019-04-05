@@ -67,14 +67,23 @@ function checkWin(shadowBoard, winSize) {
             alert("Player O won!");
             boxes.forEach(box => box.removeEventListener('click', play));
         }
-    };
+    }
+
     //vertical win
-    /*for (let col=0, col <= winSize, col++) {
+    for (let col=0; col <= winSize; col++) {
         check = [];
 
         for (row of shadowBoard) {
             check.push(row[col]);
         }
-
-    }*/
+        xWins = check.filter((el) => (el === 'X')).length == winSize;
+        oWins = check.filter((el) => (el === 'O')).length == winSize;
+        if (xWins) {
+            alert("Player X won!");
+            boxes.forEach(box => box.removeEventListener('click', play));
+        } else if (oWins) {
+            alert("Player O won!");
+            boxes.forEach(box => box.removeEventListener('click', play));
+        }
+    }
 }
