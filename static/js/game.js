@@ -70,7 +70,7 @@ function checkWin(shadowBoard, winSize) {
     }
 
     //vertical win
-    for (let col=0; col <= winSize; col++) {
+    for (let col=0; col < winSize; col++) {
         check = [];
 
         for (row of shadowBoard) {
@@ -86,4 +86,33 @@ function checkWin(shadowBoard, winSize) {
             boxes.forEach(box => box.removeEventListener('click', play));
         }
     }
+
+    //diagonal win
+    diagonalCheck = [];
+    for (let col=winSize-1, row=0; col >= 0, row < winSize; col--, row++) {
+        diagonalCheck.push(shadowBoard[row][col])
+    }
+    xWins = diagonalCheck.filter((el) => (el === 'X')).length == winSize;
+    oWins = diagonalCheck.filter((el) => (el === 'O')).length == winSize;
+    if (xWins) {
+        alert("Player X won!");
+        boxes.forEach(box => box.removeEventListener('click', play));
+    } else if (oWins) {
+        alert("Player O won!");
+        boxes.forEach(box => box.removeEventListener('click', play));
+    }
+    diagonalCheck = [];
+    for (let col=0, row=0; col < winSize; col++, row++) {
+        diagonalCheck.push(shadowBoard[row][col])
+    }
+    xWins = diagonalCheck.filter((el) => (el === 'X')).length == winSize;
+    oWins = diagonalCheck.filter((el) => (el === 'O')).length == winSize;
+    if (xWins) {
+        alert("Player X won!");
+        boxes.forEach(box => box.removeEventListener('click', play));
+    } else if (oWins) {
+        alert("Player O won!");
+        boxes.forEach(box => box.removeEventListener('click', play));
+    }
+
 }
