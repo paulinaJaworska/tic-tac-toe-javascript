@@ -57,16 +57,7 @@ function play(event) {
 function checkWin(shadowBoard, winSize) {
     // horizontal win
     for (row of shadowBoard) {
-        xWins = row.filter((el) => (el === 'X')).length == winSize;
-        oWins = row.filter((el) => (el === 'O')).length == winSize;
-
-        if (xWins) {
-            alert("Player X won!");
-            boxes.forEach(box => box.removeEventListener('click', play));
-        } else if (oWins) {
-            alert("Player O won!");
-            boxes.forEach(box => box.removeEventListener('click', play));
-        }
+        handleWin(row);
     }
 
     //vertical win
@@ -76,15 +67,7 @@ function checkWin(shadowBoard, winSize) {
         for (row of shadowBoard) {
             check.push(row[col]);
         }
-        xWins = check.filter((el) => (el === 'X')).length == winSize;
-        oWins = check.filter((el) => (el === 'O')).length == winSize;
-        if (xWins) {
-            alert("Player X won!");
-            boxes.forEach(box => box.removeEventListener('click', play));
-        } else if (oWins) {
-            alert("Player O won!");
-            boxes.forEach(box => box.removeEventListener('click', play));
-        }
+        handleWin(check);
     }
 
     //diagonal win
@@ -92,21 +75,19 @@ function checkWin(shadowBoard, winSize) {
     for (let col=winSize-1, row=0; col >= 0, row < winSize; col--, row++) {
         diagonalCheck.push(shadowBoard[row][col])
     }
-    xWins = diagonalCheck.filter((el) => (el === 'X')).length == winSize;
-    oWins = diagonalCheck.filter((el) => (el === 'O')).length == winSize;
-    if (xWins) {
-        alert("Player X won!");
-        boxes.forEach(box => box.removeEventListener('click', play));
-    } else if (oWins) {
-        alert("Player O won!");
-        boxes.forEach(box => box.removeEventListener('click', play));
-    }
+    handleWin(diagonalCheck);
+
     diagonalCheck = [];
     for (let col=0, row=0; col < winSize; col++, row++) {
         diagonalCheck.push(shadowBoard[row][col])
     }
-    xWins = diagonalCheck.filter((el) => (el === 'X')).length == winSize;
-    oWins = diagonalCheck.filter((el) => (el === 'O')).length == winSize;
+    handleWin(diagonalCheck);
+
+}
+
+function handleWin(checkList) {
+    xWins = checkList.filter((el) => (el === 'X')).length == winSize;
+    oWins = checkList.filter((el) => (el === 'O')).length == winSize;
     if (xWins) {
         alert("Player X won!");
         boxes.forEach(box => box.removeEventListener('click', play));
@@ -114,5 +95,4 @@ function checkWin(shadowBoard, winSize) {
         alert("Player O won!");
         boxes.forEach(box => box.removeEventListener('click', play));
     }
-
 }
