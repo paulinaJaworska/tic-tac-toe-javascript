@@ -5,12 +5,12 @@ let boxes = document.querySelectorAll(".game-cell"),
     rows = board.dataset.rowNum,
     retryButton = document.getElementById("retry-button");
 
-retryButton.addEventListener('click', function(event) {
-    boxes.forEach (function(box) {
+retryButton.addEventListener('click', function (event) {
+    boxes.forEach(function (box) {
         box.innerHTML = '';
     });
     boxes.forEach(box => box.addEventListener('click', play));
-    shadowBoard = createBoardArray(rows,columns)
+    shadowBoard = createBoardArray(rows, columns)
 });
 
 // GAME LOGIC
@@ -21,7 +21,7 @@ function createBoardArray(rows, columns) {
     let boardArray = [];
     let row = [];
 
-    for (let col=0; col < columns; col++) {
+    for (let col = 0; col < columns; col++) {
         row.push("");
     }
     for (let i = 0; i < rows; i++) {
