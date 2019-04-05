@@ -3,7 +3,8 @@ let boxes = document.querySelectorAll(".game-cell"),
     board = document.getElementById("game-board"),
     columns = board.dataset.colNum,
     rows = board.dataset.rowNum,
-    retryButton = document.getElementById("retry-button");
+    retryButton = document.getElementById("retry-button"),
+    winSize = board.dataset.winSize;
 
 retryButton.addEventListener('click', function (event) {
     boxes.forEach(function (box) {
@@ -17,19 +18,26 @@ retryButton.addEventListener('click', function (event) {
 let shadowBoard = createBoardArray(rows, columns),
     round = 1;
 
+// Works correctly because thanks to asigning boards to new variable using .slice() method. Arrays inside are passed by
+// values to the outside array. Otherwise when passed by reference when we want to replace one element on 1st position,
+// the 1st element is changed in all the inside arrays.
 function createBoardArray(rows, columns) {
-    let boardArray = [];
+    let board = [];
     let row = [];
 
     for (let col = 0; col < columns; col++) {
         row.push("");
     }
     for (let i = 0; i < rows; i++) {
-        boardArray.push(row);
+        board.push(row);
     }
-
+    let boardArray = [];
+    for (let i = 0; i < rows; i++) {
+        boardArray[i] = board[i].slice();
+    }
     return boardArray
 }
+
 
 boxes.forEach(box => box.addEventListener('click', play));
 
@@ -41,31 +49,32 @@ function play(event) {
     event.target.removeEventListener('click', play);
     shadowBoard[coordinateY][coordinateX] = turn;
     console.log(shadowBoard);
+    checkWin(shadowBoard, winSize);
     round++;
-    //check()
+
 }
 
-/*var ticTacToe = _.range(3).map(function () {
- *       // Create one row
- *       return _.range(3).map(function () {
- *           return '.';
- *       });
- *   });
- *   ticTacToe[0][2] = 'X';  // [row][column]
- *   ticTacToe.forEach(function (row) {
- *       console.log(row.join(' '));
- *   });
- *
- *
- *
- *function createArray(length) {
- *    var arr = new Array(length || 0),
- *      i = length;
- *
- *   if (arguments.length > 1) {
- *       var args = Array.prototype.slice.call(arguments, 1);
- *       while(i--) arr[length-1 - i] = createArray.apply(this, args);
- *   }
- *
- *   return arr;
- *}*/
+function checkWin(shadowBoard, winSize) {
+    // horizontal win
+    for (row of shadowBoard) {
+        xWins = row.filter((el) => (el === 'X')).length == winSize;
+        oWins = row.filter((el) => (el === 'O')).length == winSize;
+
+        if (xWins) {
+            alert("Player X won!");
+            boxes.forEach(box => box.removeEventListener('click', play));
+        } else if (oWins) {
+            alert("Player O won!");
+            boxes.forEach(box => box.removeEventListener('click', play));
+        }
+    };
+    //vertical win
+    /*for (let col=0, col <= winSize, col++) {
+        check = [];
+
+        for (row of shadowBoard) {
+            check.push(row[col]);
+        }
+
+    }*/
+}
