@@ -1,5 +1,16 @@
-venv
-/venv
-venv/
+# Created by https://www.gitignore.io
+
+### PyCharm ###
 .idea/
-.idea
+
+### Python cache ###
+__pycache__/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

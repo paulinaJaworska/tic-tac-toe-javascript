@@ -8,7 +8,7 @@ let boxes = document.querySelectorAll(".game-cell"),
 
 retryButton.addEventListener('click', function (event) {
     boxes.forEach(function (box) {
-        box.innerHTML = '';             // oddzielna funkcja, może być przydatna do różnych zdarzeń
+        box.innerHTML = '';
     });
     boxes.forEach(box => box.addEventListener('click', play));
     shadowBoard = createBoardArray(rows, columns)
